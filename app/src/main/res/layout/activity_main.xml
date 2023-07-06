@@ -34,7 +34,7 @@
         android:layout_width="148dp"
         android:layout_height="60dp"
         android:layout_marginTop="392dp"
-        android:text="Import File"
+        android:text="Uploaded File"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
