@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnImport = findViewById(R.id.btnImport);
+        Button btnImport = findViewById(R.id.importFileButton);
         btnImport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
