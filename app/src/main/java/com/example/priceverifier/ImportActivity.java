@@ -16,9 +16,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +56,6 @@ public class ImportActivity extends AppCompatActivity {
 
         btnPickFile = findViewById(R.id.btnPickFile);
         btnSave = findViewById(R.id.btnSave);
-        tableLayout = findViewById(R.id.tableLayout);
 
         btnPickFile.setOnClickListener(v -> openFileChooser());
 
@@ -165,8 +170,9 @@ public class ImportActivity extends AppCompatActivity {
 
     private void showData() {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
-            Cursor cursor = db.rawQuery("SELECT * FROM items", null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
 
+            TableLayout tableLayout = findViewById(R.id.tableLayout);
             tableLayout.removeAllViews(); // Clear previous data
 
             // Add table header row
@@ -199,7 +205,6 @@ public class ImportActivity extends AppCompatActivity {
                     tableLayout.addView(dataRow);
 
                     // Debug logs
-
                     Log.d("DB", "Added data row: " + dataRow.toString());
                 } while (cursor.moveToNext());
             } else {
@@ -212,6 +217,7 @@ public class ImportActivity extends AppCompatActivity {
             Toast.makeText(this, "Error retrieving data from the database", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
 
