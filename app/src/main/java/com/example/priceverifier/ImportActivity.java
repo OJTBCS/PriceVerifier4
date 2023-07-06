@@ -39,8 +39,8 @@ public class ImportActivity extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST_CODE = 123;
     private static final int EXPECTED_COLUMN_COUNT = 11;
 
-    private Button btnPickFile;
-    private Button btnSave;
+    private Button importFileButton;
+    private Button cancel_button;
     private Uri selectedFileUri;
     private DBHelper dbHelper;
     private List<String> requiredColumns;
@@ -54,12 +54,12 @@ public class ImportActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        btnPickFile = findViewById(R.id.btnPickFile);
-        btnSave = findViewById(R.id.btnSave);
+        importFileButton = findViewById(R.id.importFileButton);
+        cancel_button = findViewById(R.id.cancel_button);
 
-        btnPickFile.setOnClickListener(v -> openFileChooser());
+        importFileButton.setOnClickListener(v -> openFileChooser());
 
-        btnSave.setOnClickListener(v -> {
+        cancel_button.setOnClickListener(v -> {
             if (validateFile()) {
                 saveFile();
                 showData();
