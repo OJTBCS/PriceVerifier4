@@ -26,7 +26,7 @@
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:onClick="onConfigurationButtonClick"
-        android:text="Import File"
+        android:text="Upload File"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
