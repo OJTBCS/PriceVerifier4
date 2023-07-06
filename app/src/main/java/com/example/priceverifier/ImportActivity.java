@@ -1,13 +1,20 @@
 package com.example.priceverifier;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,12 +31,15 @@ import java.util.List;
 public class ImportActivity extends AppCompatActivity {
 
     private static final int PICK_FILE_REQUEST_CODE = 123;
+    private static final int EXPECTED_COLUMN_COUNT = 11;
 
     private Button btnPickFile;
     private Button btnSave;
     private Uri selectedFileUri;
     private DBHelper dbHelper;
     private List<String> requiredColumns;
+
+    private TableLayout tableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +50,16 @@ public class ImportActivity extends AppCompatActivity {
 
         btnPickFile = findViewById(R.id.btnPickFile);
         btnSave = findViewById(R.id.btnSave);
+        tableLayout = findViewById(R.id.tableLayout);
 
-        btnPickFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
-            }
-        });
+        btnPickFile.setOnClickListener(v -> openFileChooser());
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateFile()) {
-                    saveFile();
-                } else {
-                    Toast.makeText(ImportActivity.this, "Invalid file format or missing required columns", Toast.LENGTH_SHORT).show();
-                }
+        btnSave.setOnClickListener(v -> {
+            if (validateFile()) {
+                saveFile();
+                showData();
+            } else {
+                Toast.makeText(ImportActivity.this, "Invalid file format or missing required columns", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,27 +87,27 @@ public class ImportActivity extends AppCompatActivity {
     }
 
     private boolean isValidFileContent(Uri fileUri) {
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+        try (InputStream inputStream = getContentResolver().openInputStream(fileUri)) {
             if (inputStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                if ((line = reader.readLine()) != null) {
-                    String[] columns = line.split(",");
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    String line = reader.readLine();
+                    if (line != null) {
+                        String[] columns = line.split(",", -1);
 
-                    for (String requiredColumn : requiredColumns) {
-                        boolean found = false;
-                        for (String column : columns) {
-                            if (column.trim().equalsIgnoreCase(requiredColumn.trim())) {
-                                found = true;
-                                break;
+                        for (String requiredColumn : requiredColumns) {
+                            boolean found = false;
+                            for (String column : columns) {
+                                if (column.trim().equalsIgnoreCase(requiredColumn.trim())) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                return false;
                             }
                         }
-                        if (!found) {
-                            return false;
-                        }
+                        return true;
                     }
-                    return true;
                 }
             }
         } catch (IOException e) {
@@ -112,113 +116,134 @@ public class ImportActivity extends AppCompatActivity {
         return false;
     }
 
-
     private void saveFile() {
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(selectedFileUri);
+        try (InputStream inputStream = getContentResolver().openInputStream(selectedFileUri)) {
             if (inputStream != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                boolean isFirstLine = true;
-                int lineNumber = 1;
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    String line;
+                    boolean isFirstLine = true;
 
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.beginTransaction();
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    db.beginTransaction();
 
-                try {
-                    while ((line = reader.readLine()) != null) {
+                    while ((line = reader.readLine())!= null) {
+                        String[] data = line.split(",", -1);
+
                         if (isFirstLine) {
+                            // Skip the first line (header row)
                             isFirstLine = false;
-                            lineNumber++;
                             continue;
                         }
 
-                        String[] values = line.split(",");
+                        ContentValues values = new ContentValues();
+                        values.put("Flag", data[0].trim());
+                        values.put("PLU", data[1].trim());
+                        values.put("Barcode", data[2].trim());
+                        values.put("Item_Description", data[3].trim());
+                        values.put("Unit_Size", data[4].trim());
+                        values.put("Unit_Measure", data[5].trim());
+                        values.put("Unit_Price", data[6].trim());
+                        values.put("Currency", data[7].trim());
+                        values.put("Manufacturer", data[8].trim());
+                        values.put("Store_Code", data[9].trim());
+                        values.put("Item_Type", data[10].trim());
 
-                        if (values.length != requiredColumns.size()) {
-                            throw new IllegalArgumentException("Invalid number of columns at line " + lineNumber);
-                        }
-
-                        ContentValues contentValues = new ContentValues();
-                        try {
-                            contentValues.put("Flag", values[0].trim());
-                            contentValues.put("PLU", Long.parseLong(values[1].trim()));
-                            contentValues.put("Barcode", values[2].trim());
-                            contentValues.put("Item_Description", values[3].trim());
-                            contentValues.put("Unit_Size", Float.parseFloat(values[4].trim()));
-                            contentValues.put("Unit_Measure", values[5].trim());
-                            contentValues.put("Unit_Price", Float.parseFloat(values[6].trim()));
-                            contentValues.put("Currency", values[7].trim());
-                            contentValues.put("Manufacturer", values[8].trim());
-                            contentValues.put("Store_Code", values[9].trim());
-                            contentValues.put("Item_Type", values[10].trim());
-
-                            db.insert(DBHelper.TABLE_NAME, null, contentValues);
-                        } catch (NumberFormatException e) {
-                            db.endTransaction();
-                            String errorMessage = String.format("Error parsing numeric value at line %d: %s", lineNumber, e.getMessage());
-                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        lineNumber++;
+                        db.insert("items", null, values);
                     }
 
                     db.setTransactionSuccessful();
-                    Toast.makeText(this, "File saved to the database", Toast.LENGTH_SHORT).show();
-                } catch (IllegalArgumentException e) {
                     db.endTransaction();
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                } finally {
-                    db.endTransaction();
+                    db.close();
+
+                    Toast.makeText(ImportActivity.this, "File saved successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error saving file to the database", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private ContentValues createContentValues(String[] values) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("Flag", values[0].trim());
-        contentValues.put("PLU", Integer.parseInt(values[1].trim()));
-        contentValues.put("Barcode", values[2].trim());
-        contentValues.put("Item_Description", values[3].trim());
-        contentValues.put("Unit_Size", Float.parseFloat(values[4].trim()));
-        contentValues.put("Unit_Measure", values[5].trim());
-        contentValues.put("Unit_Price", Float.parseFloat(values[6].trim()));
-        contentValues.put("Currency", values[7].trim());
-        contentValues.put("Manufacturer", values[8].trim());
-        contentValues.put("Store_Code", values[9].trim());
-        contentValues.put("Item_Type", values[10].trim());
-        return contentValues;
+    private void showData() {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            Cursor cursor = db.rawQuery("SELECT * FROM items", null);
+
+            tableLayout.removeAllViews(); // Clear previous data
+
+            // Add table header row
+            TableRow headerRow = new TableRow(this);
+            headerRow.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+            for (String column : requiredColumns) {
+                TextView headerTextView = createTextView(column, true);
+                headerRow.addView(headerTextView);
+            }
+
+            tableLayout.addView(headerRow);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    TableRow dataRow = new TableRow(this);
+                    dataRow.setLayoutParams(new TableLayout.LayoutParams(
+                            TableLayout.LayoutParams.MATCH_PARENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT));
+
+                    for (String column : requiredColumns) {
+                        int columnIndex = cursor.getColumnIndex(column);
+                        String value = cursor.getString(columnIndex);
+                        TextView dataTextView = createTextView(value, false);
+                        dataRow.addView(dataTextView);
+                    }
+
+                    tableLayout.addView(dataRow);
+
+                    // Debug logs
+
+                    Log.d("DB", "Added data row: " + dataRow.toString());
+                } while (cursor.moveToNext());
+            } else {
+                Log.d("DB", "No data found in the database");
+            }
+
+            cursor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error retrieving data from the database", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
+    private TextView createTextView(String text, boolean isHeader) {
+        TextView textView = new TextView(this);
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+        int padding = getResources().getDimensionPixelSize(R.dimen.cell_padding);
+        textView.setLayoutParams(layoutParams);
+        textView.setPadding(padding, padding, padding, padding);
+        textView.setText(text);
+        if (isHeader) {
+            textView.setBackgroundColor(getResources().getColor(R.color.header_background));
+            textView.setTextColor(getResources().getColor(R.color.header_text_color));
+        }
+        return textView;
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null && data.getData() != null) {
-                selectedFileUri = data.getData();
-                btnPickFile.setVisibility(View.GONE);
-                btnSave.setVisibility(View.VISIBLE);
-            }
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            selectedFileUri = data.getData();
+            Toast.makeText(ImportActivity.this, "File selected: " + selectedFileUri.getLastPathSegment(), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private String getFileExtension(Uri fileUri) {
-        String extension = null;
-        if (fileUri.getScheme().equals("content")) {
-            String mimeType = getContentResolver().getType(fileUri);
-            extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
-        } else {
-            String filePath = fileUri.getPath();
-            if (filePath != null) {
-                extension = MimeTypeMap.getFileExtensionFromUrl(filePath);
-            }
-        }
-        return extension;
     }
 }
