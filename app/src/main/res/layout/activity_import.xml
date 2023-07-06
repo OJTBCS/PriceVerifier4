@@ -1,63 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#EDE8E8" >
 
-    <Button
-        android:id="@+id/btnPickFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Pick File"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Save"
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="221dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:hint="Enter  Text"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+    <Button
+        android:id="@+id/importFileButton"
+        android:layout_width="108dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="684dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onImportFileButtonClick"
+        android:text="Import"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="44dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/importfile" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onCancelButtonClick"
+        android:text="Cancel"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toEndOf="@+id/importFileButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="129dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="780dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Import File"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.215"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="221dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="484dp"
+        android:hint="Enter  Text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/importFileButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPickFile"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <TableLayout
-            android:id="@+id/tableLayout"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="284dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="108dp"
+        android:fontFamily="sans-serif-black"
+        android:text="SUPERMARKET DATA"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editText2"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="216dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="456dp"
+        android:layout_marginEnd="24dp"
+        android:max="100"
+        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="208dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:text="SuperMarket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        tools:layout_editor_absoluteX="16dp"
+        android:background="#0000FF">
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/table_border"
-            android:padding="4dp">
+            android:layout_height="match_parent"
+            android:background="#EEEEEE">
 
-            <TableRow
+            <TextView
+                android:backgroundTint="#FFFFFF"
+                android:padding="8dp"
+                android:text="ID"
+                android:textStyle="bold" />
 
-                />
+            <TextView
+                android:padding="8dp"
+                android:text="Flag"
+                android:textStyle="bold" />
 
-        </TableLayout>
+            <TextView
+                android:padding="8dp"
+                android:text="PLU"
+                android:textStyle="bold" />
 
-    </ScrollView>
+            <TextView
+                android:padding="8dp"
+                android:text="Barcode"
+                android:textStyle="bold" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_vertical"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+            <TextView
+                android:padding="8dp"
+                android:text="Item Description"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Unit Size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Unit Measure"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Unit Price"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Currency"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Manufacturer"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Store Code"
+                android:textStyle="bold" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Item Type"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+    </TableLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
