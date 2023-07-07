@@ -12,17 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,26 +47,24 @@ public class ImportActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        importFileButton = findViewById(R.id.importFileButton);
-        saveButton = findViewById(R.id.saveButton);
+        importFileButton = findViewById(R.id.chooseFileButton);
+        saveButton = findViewById(R.id.importButton);
         deleteButton = findViewById(R.id.deleteButton);
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
         saveButton.setOnClickListener(v -> {
             if (validateFile()) {
-                showData();
                 saveFile();
+                showData();
             } else {
                 Toast.makeText(ImportActivity.this, "Invalid file format or missing required columns", Toast.LENGTH_SHORT).show();
             }
         });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeAllItems();
-                showData();
-            }
+
+        deleteButton.setOnClickListener(v -> {
+            removeAllItems();
+            showData();
         });
 
         requiredColumns = Arrays.asList(
@@ -124,11 +126,14 @@ public class ImportActivity extends AppCompatActivity {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
                     String line;
                     boolean isFirstLine = true;
+                    int batchSize = 1000; // Number of rows to insert in each batch
 
                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                     db.beginTransaction();
 
-                    while ((line = reader.readLine())!= null) {
+                    List<ContentValues> contentValuesList = new ArrayList<>();
+
+                    while ((line = reader.readLine()) != null) {
                         String[] data = line.split(",", -1);
 
                         if (isFirstLine) {
@@ -150,7 +155,21 @@ public class ImportActivity extends AppCompatActivity {
                         values.put("Store_Code", data[9].trim());
                         values.put("Item_Type", data[10].trim());
 
-                        db.insert("items", null, values);
+                        contentValuesList.add(values);
+
+                        // Check if the batch size is reached
+                        if (contentValuesList.size() >= batchSize) {
+                            // Insert the batch of rows
+                            for (ContentValues contentValues : contentValuesList) {
+                                db.insert("items", null, contentValues);
+                            }
+                            contentValuesList.clear(); // Clear the batch
+                        }
+                    }
+
+                    // Insert any remaining rows in the last batch
+                    for (ContentValues contentValues : contentValuesList) {
+                        db.insert("items", null, contentValues);
                     }
 
                     db.setTransactionSuccessful();
@@ -164,58 +183,6 @@ public class ImportActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    private void showData() {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
-            Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
-
-            TableLayout tableLayout = findViewById(R.id.tableLayout);
-            tableLayout.removeAllViews(); // Clear previous data
-
-            // Add table header row
-            TableRow headerRow = new TableRow(this);
-            headerRow.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT));
-
-            for (String column : requiredColumns) {
-                ScrollView headerTextView = createScrollView(column, true);
-                headerRow.addView(headerTextView);
-            }
-
-            tableLayout.addView(headerRow);
-
-            if (cursor.moveToFirst()) {
-                do {
-                    TableRow dataRow = new TableRow(this);
-                    dataRow.setLayoutParams(new TableLayout.LayoutParams(
-                            TableLayout.LayoutParams.MATCH_PARENT,
-                            TableLayout.LayoutParams.WRAP_CONTENT));
-
-                    for (String column : requiredColumns) {
-                        int columnIndex = cursor.getColumnIndex(column);
-                        String value = cursor.getString(columnIndex);
-                        ScrollView dataTextView = createScrollView(value, false);
-                        dataRow.addView(dataTextView);
-                    }
-
-                    tableLayout.addView(dataRow);
-
-                    // Debug logs
-                    Log.d("DB", "Added data row: " + dataRow.toString());
-                } while (cursor.moveToNext());
-            } else {
-                Log.d("DB", "No data found in the database");
-            }
-
-            cursor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error retrieving data from the database", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     private ScrollView createScrollView(String text, boolean isHeader) {
         ScrollView scrollView = new ScrollView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -241,6 +208,70 @@ public class ImportActivity extends AppCompatActivity {
         return scrollView;
     }
 
+    private void showData() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
+
+        TableLayout tableLayout = findViewById(R.id.tableLayout);
+        tableLayout.removeAllViews(); // Clear previous data
+
+        // Add table header row
+        TableRow headerRow = new TableRow(this);
+        headerRow.setLayoutParams(new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.WRAP_CONTENT));
+
+        for (String column : requiredColumns) {
+            ScrollView headerTextView = createScrollView(column, true);
+            headerRow.addView(headerTextView);
+        }
+
+        tableLayout.addView(headerRow);
+
+        // Start a background thread to load the data
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (cursor.moveToNext()) {
+                    TableRow dataRow = new TableRow(ImportActivity.this);
+                    dataRow.setLayoutParams(new TableLayout.LayoutParams(
+                            TableLayout.LayoutParams.MATCH_PARENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT));
+
+                    for (String column : requiredColumns) {
+                        int columnIndex = cursor.getColumnIndex(column);
+                        String value = cursor.getString(columnIndex);
+                        ScrollView dataTextView = createScrollView(value, false);
+                        dataRow.addView(dataTextView);
+                    }
+
+                    // Update the UI on the main thread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tableLayout.addView(dataRow);
+
+                            // Debug logs
+                            Log.d("DB", "Added data row: " + dataRow.toString());
+                        }
+                    });
+                }
+
+                cursor.close();
+                db.close();
+
+                // Hide the progress bar after loading
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
+
+        thread.start();
+    }
+
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -264,5 +295,4 @@ public class ImportActivity extends AppCompatActivity {
         db.close();
         Toast.makeText(ImportActivity.this, "All items removed from the database", Toast.LENGTH_SHORT).show();
     }
-
 }

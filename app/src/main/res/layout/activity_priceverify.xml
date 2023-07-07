@@ -38,7 +38,7 @@
         android:id="@+id/itemPriceValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
+        android:layout_marginStart="144dp"
         android:fontFamily="sans-serif-black"
         android:text="PHP 0.00"
         android:textSize="48sp"
@@ -152,16 +152,16 @@
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="152dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="222dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="660dp"
         android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
         android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.019"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
