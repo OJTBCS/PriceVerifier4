@@ -3,49 +3,38 @@ package com.example.priceverifier;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
-
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ImportActivity extends AppCompatActivity {
 
     private static final int PICK_FILE_REQUEST_CODE = 123;
-    private static final int EXPECTED_COLUMN_COUNT = 11;
-
     private Button importFileButton;
-    private Button cancel_button;
+    private Button saveButton;
+    private Button deleteButton;
     private Uri selectedFileUri;
     private DBHelper dbHelper;
     private List<String> requiredColumns;
-
-    private TableLayout tableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +44,24 @@ public class ImportActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         importFileButton = findViewById(R.id.importFileButton);
-        cancel_button = findViewById(R.id.cancel_button);
+        saveButton = findViewById(R.id.saveButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
-        cancel_button.setOnClickListener(v -> {
+        saveButton.setOnClickListener(v -> {
             if (validateFile()) {
-                saveFile();
                 showData();
+                saveFile();
             } else {
                 Toast.makeText(ImportActivity.this, "Invalid file format or missing required columns", Toast.LENGTH_SHORT).show();
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeAllItems();
+                showData();
             }
         });
 
@@ -182,7 +179,7 @@ public class ImportActivity extends AppCompatActivity {
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
             for (String column : requiredColumns) {
-                TextView headerTextView = createTextView(column, true);
+                ScrollView headerTextView = createScrollView(column, true);
                 headerRow.addView(headerTextView);
             }
 
@@ -198,7 +195,7 @@ public class ImportActivity extends AppCompatActivity {
                     for (String column : requiredColumns) {
                         int columnIndex = cursor.getColumnIndex(column);
                         String value = cursor.getString(columnIndex);
-                        TextView dataTextView = createTextView(value, false);
+                        ScrollView dataTextView = createScrollView(value, false);
                         dataRow.addView(dataTextView);
                     }
 
@@ -219,23 +216,31 @@ public class ImportActivity extends AppCompatActivity {
     }
 
 
-
-
-    private TextView createTextView(String text, boolean isHeader) {
-        TextView textView = new TextView(this);
+    private ScrollView createScrollView(String text, boolean isHeader) {
+        ScrollView scrollView = new ScrollView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
                 TableRow.LayoutParams.WRAP_CONTENT);
         int padding = getResources().getDimensionPixelSize(R.dimen.cell_padding);
-        textView.setLayoutParams(layoutParams);
+        scrollView.setLayoutParams(layoutParams);
+
+        TextView textView = new TextView(this);
+        textView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setPadding(padding, padding, padding, padding);
         textView.setText(text);
+
+        scrollView.addView(textView);
+
         if (isHeader) {
             textView.setBackgroundColor(getResources().getColor(R.color.header_background));
             textView.setTextColor(getResources().getColor(R.color.header_text_color));
         }
-        return textView;
+
+        return scrollView;
     }
+
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -252,4 +257,12 @@ public class ImportActivity extends AppCompatActivity {
             Toast.makeText(ImportActivity.this, "File selected: " + selectedFileUri.getLastPathSegment(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void removeAllItems() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(DBHelper.TABLE_NAME, null, null);
+        db.close();
+        Toast.makeText(ImportActivity.this, "All items removed from the database", Toast.LENGTH_SHORT).show();
+    }
+
 }
