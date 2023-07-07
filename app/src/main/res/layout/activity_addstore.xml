@@ -9,13 +9,13 @@
         android:id="@+id/backButton"
         android:layout_width="222dp"
         android:layout_height="92dp"
-        android:layout_marginTop="696dp"
+        android:layout_marginTop="660dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Back"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -5,18 +5,163 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="222dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="696dp"
-        android:backgroundTint="#6E3131"
+    <!-- Welcome Shoppers -->
+    <TextView
+        android:id="@+id/welcomeShoppersTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6E3131"
         android:fontFamily="sans-serif-black"
-        android:text="Back"
-        android:textSize="24sp"
+        android:padding="16dp"
+        android:text="WELCOME SHOPPERS"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="184dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Item Price:"
+        android:textColor="#6E3131"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/itemPriceValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="136dp"
+        android:fontFamily="sans-serif-black"
+        android:text="PHP 0.00"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/itemPriceTextView"
+        app:layout_constraintStart_toEndOf="@id/itemPriceTextView" />
+
+    <TextView
+        android:id="@+id/itemDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Item Description:"
+        android:textColor="#6E3131"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPriceTextView" />
+
+    <TextView
+        android:id="@+id/itemDescriptionValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/itemDescriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/itemDescriptionTextView" />
+
+    <TextView
+        android:id="@+id/unitSizeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Unit Size:"
+        android:textColor="#6E3131"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemDescriptionTextView" />
+
+    <TextView
+        android:id="@+id/unitSizeValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="244dp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/unitSizeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toEndOf="@id/unitSizeTextView" />
+
+    <TextView
+        android:id="@+id/unitMeasurementTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Unit of Measurement:"
+        android:textColor="#6E3131"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unitSizeTextView" />
+
+    <TextView
+        android:id="@+id/unitMeasurementValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/unitMeasurementTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/unitMeasurementTextView" />
+
+    <TextView
+        android:id="@+id/barcodeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Barcode:"
+        android:textColor="#6E3131"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unitMeasurementTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/barcodeValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/barcodeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/unitMeasurementValueTextView"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="152dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="#6E3131"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
