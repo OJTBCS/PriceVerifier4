@@ -8,11 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -30,15 +29,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class ImportActivity extends AppCompatActivity {
 
     private static final int PICK_FILE_REQUEST_CODE = 123;
     private Button importFileButton;
     private Button saveButton;
     private Button deleteButton;
+    private EditText searchEditText;
+    private Button searchButton;
     private Uri selectedFileUri;
     private DBHelper dbHelper;
-    private List<String> requiredColumns;
+    private List<String> dataView;
+    private List<String[]> filteredData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class ImportActivity extends AppCompatActivity {
         importFileButton = findViewById(R.id.chooseFileButton);
         saveButton = findViewById(R.id.importButton);
         deleteButton = findViewById(R.id.deleteButton);
+        searchButton = findViewById(R.id.searchButton);
+        searchEditText = findViewById(R.id.searchEditText);
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
@@ -67,13 +72,75 @@ public class ImportActivity extends AppCompatActivity {
             showData();
         });
 
-        requiredColumns = Arrays.asList(
+        searchButton.setOnClickListener(v -> {
+          String query = searchEditText.getText().toString().trim();
+          filterData(query);
+        });
+
+
+        dataView = Arrays.asList(
                 "Flag", "PLU", "Barcode", "Item_Description", "Unit_Size",
                 "Unit_Measure", "Unit_Price", "Currency", "Manufacturer",
                 "Store_Code", "Item_Type"
         );
     }
 
+    private void filterData(String query){
+        filteredData = new ArrayList<>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME,null);
+
+        while (cursor.moveToNext()){
+            boolean matchFound = false;
+            for(String column : dataView){
+                int columnIndex = cursor.getColumnIndex(column);
+                String value = cursor.getString(columnIndex);
+
+                if(value != null && value.toLowerCase().contains(query.toLowerCase())){
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if(matchFound){
+                String[] rowData = new String[dataView.size()];
+                for(int i = 0; i < dataView.size(); i++){
+                    int columnIndex = cursor.getColumnIndex(dataView.get(i));
+                    rowData[i] = cursor.getString(columnIndex);
+                }
+                filteredData.add(rowData);
+            }
+        }
+        cursor.close();
+        db.close();
+
+        displayFilteredData();
+    }
+
+    private void displayFilteredData(){
+        TableLayout tableLayout = findViewById(R.id.tableLayout);
+        tableLayout.removeAllViews();
+
+        TableRow headerRow = new TableRow(this);
+        headerRow.setLayoutParams(new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.WRAP_CONTENT));
+
+        for(String[] rowData : filteredData){
+            TableRow dataRow = new TableRow(ImportActivity.this);
+            dataRow.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+            for(String value : rowData){
+                ScrollView dataTextView = createScrollView(value, true);
+                dataRow.addView(dataTextView);
+            }
+            tableLayout.addView(dataRow);
+            Log.d("DB", "Added data row: "+ dataRow.toString());
+        }
+    }
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
@@ -98,7 +165,7 @@ public class ImportActivity extends AppCompatActivity {
                     if (line != null) {
                         String[] columns = line.split(",", -1);
 
-                        for (String requiredColumn : requiredColumns) {
+                        for (String requiredColumn : dataView) {
                             boolean found = false;
                             for (String column : columns) {
                                 if (column.trim().equalsIgnoreCase(requiredColumn.trim())) {
@@ -221,7 +288,7 @@ public class ImportActivity extends AppCompatActivity {
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
-        for (String column : requiredColumns) {
+        for (String column : dataView) {
             ScrollView headerTextView = createScrollView(column, true);
             headerRow.addView(headerTextView);
         }
@@ -238,10 +305,10 @@ public class ImportActivity extends AppCompatActivity {
                             TableLayout.LayoutParams.MATCH_PARENT,
                             TableLayout.LayoutParams.WRAP_CONTENT));
 
-                    for (String column : requiredColumns) {
+                    for (String column : dataView) {
                         int columnIndex = cursor.getColumnIndex(column);
                         String value = cursor.getString(columnIndex);
-                        ScrollView dataTextView = createScrollView(value, false);
+                        ScrollView dataTextView = createScrollView(value, true);
                         dataRow.addView(dataTextView);
                     }
 
@@ -260,7 +327,6 @@ public class ImportActivity extends AppCompatActivity {
                 cursor.close();
                 db.close();
 
-                // Hide the progress bar after loading
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
