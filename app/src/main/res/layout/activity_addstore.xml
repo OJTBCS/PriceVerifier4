@@ -8,26 +8,14 @@
     <EditText
         android:id="@+id/keyEditText"
         android:layout_width="383dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="388dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="8dp"
         android:hint="Enter Code/Key"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/descriptionEditText"
-        android:layout_width="381dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="512dp"
-        android:hint="Enter Description"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/setStoreTextView"
@@ -92,34 +80,45 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536" />
+        app:layout_constraintVertical_bias="0.567" />
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="381dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="528dp"
+        android:hint="Enter Description"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.091"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="222dp"
         android:layout_height="92dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="652dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Save"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-        app:layout_constraintHorizontal_bias="0.139"
-        app:layout_constraintStart_toEndOf="@+id/updateButton" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/deleteButton"
         android:layout_width="222dp"
         android:layout_height="92dp"
-        android:layout_marginTop="668dp"
+        android:layout_marginTop="652dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
-        android:text="Back"
+        android:text="Delete"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,29 +126,29 @@
         android:id="@+id/updateButton"
         android:layout_width="222dp"
         android:layout_height="92dp"
-        android:layout_marginStart="376dp"
+        android:layout_marginTop="652dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Update"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.368"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.546" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/deleteButton"
+        android:id="@+id/backButton"
         android:layout_width="222dp"
         android:layout_height="92dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginTop="652dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
-        android:text="Delete"
+        android:text="Back"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.546" />
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tableLayout"
