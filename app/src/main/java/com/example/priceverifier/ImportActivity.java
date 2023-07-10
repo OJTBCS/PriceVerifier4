@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -33,11 +34,8 @@ import java.util.List;
 public class ImportActivity extends AppCompatActivity {
 
     private static final int PICK_FILE_REQUEST_CODE = 123;
-    private Button importFileButton;
-    private Button saveButton;
-    private Button deleteButton;
+    private Button saveButton,deleteButton, importFileButton, searchButton, backButton;
     private EditText searchEditText;
-    private Button searchButton;
     private Uri selectedFileUri;
     private DBHelper dbHelper;
     private List<String> dataView;
@@ -55,6 +53,7 @@ public class ImportActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
         searchButton = findViewById(R.id.searchButton);
         searchEditText = findViewById(R.id.searchEditText);
+        backButton = findViewById(R.id.backButton);
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
@@ -75,6 +74,13 @@ public class ImportActivity extends AppCompatActivity {
         searchButton.setOnClickListener(v -> {
           String query = searchEditText.getText().toString().trim();
           filterData(query);
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
 
 

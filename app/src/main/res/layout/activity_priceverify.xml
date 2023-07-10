@@ -22,11 +22,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <EditText
+        android:id="@+id/barcodeEditText"
+        android:layout_width="385dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="660dp"
+        android:hint="Enter Barcode"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="189dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="660dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Back"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.981"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/checkButton"
+        android:layout_width="189dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="660dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Check"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/itemPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
+        android:layout_marginStart="188dp"
         android:layout_marginTop="184dp"
         android:fontFamily="sans-serif-black"
         android:text="Item Price:"
@@ -35,23 +76,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <TextView
-        android:id="@+id/itemPriceValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:fontFamily="sans-serif-black"
-        android:text="PHP 0.00"
-        android:textSize="48sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/itemPriceTextView"
-        app:layout_constraintStart_toEndOf="@id/itemPriceTextView" />
-
     <TextView
         android:id="@+id/itemDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-black"
         android:text="Item Description:"
@@ -64,9 +93,9 @@
         android:id="@+id/itemDescriptionValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
+        android:layout_marginStart="140dp"
         android:fontFamily="sans-serif-black"
-        android:textSize="48sp"
+        android:textSize="35sp"
         app:layout_constraintBaseline_toBaselineOf="@id/itemDescriptionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,8 +105,8 @@
         android:id="@+id/unitSizeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-black"
         android:text="Unit Size:"
         android:textColor="#6E3131"
@@ -89,20 +118,35 @@
         android:id="@+id/unitSizeValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="244dp"
+        android:layout_marginStart="144dp"
         android:fontFamily="sans-serif-black"
         android:textSize="48sp"
         app:layout_constraintBaseline_toBaselineOf="@id/unitSizeTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toEndOf="@id/unitSizeTextView" />
+
+    <TextView
+        android:id="@+id/barcodeValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-black"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toEndOf="@id/barcodeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/unitMeasurementValueTextView"
+        app:layout_constraintVertical_bias="0.011" />
 
     <TextView
         android:id="@+id/unitMeasurementTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-black"
         android:text="Unit of Measurement:"
         android:textColor="#6E3131"
@@ -114,19 +158,18 @@
         android:id="@+id/unitMeasurementValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
         android:fontFamily="sans-serif-black"
         android:textSize="48sp"
         app:layout_constraintBaseline_toBaselineOf="@id/unitMeasurementTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/unitMeasurementTextView" />
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toEndOf="@+id/unitMeasurementTextView" />
 
     <TextView
         android:id="@+id/barcodeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="288dp"
+        android:layout_marginStart="220dp"
         android:layout_marginTop="36dp"
         android:fontFamily="sans-serif-black"
         android:text="Barcode:"
@@ -138,32 +181,25 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/barcodeValueTextView"
+        android:id="@+id/priceValueTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="204dp"
         android:fontFamily="sans-serif-black"
+        android:text="PHP"
         android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/barcodeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/unitMeasurementValueTextView"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintBaseline_toBaselineOf="@id/itemPriceTextView"
+        app:layout_constraintStart_toEndOf="@id/itemPriceTextView" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="222dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="660dp"
-        android:backgroundTint="#6E3131"
+    <TextView
+        android:id="@+id/itemPriceValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="312dp"
         android:fontFamily="sans-serif-black"
-        android:text="Back"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="0.00"
+        android:textSize="48sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/itemPriceTextView"
+        app:layout_constraintStart_toEndOf="@id/itemPriceTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

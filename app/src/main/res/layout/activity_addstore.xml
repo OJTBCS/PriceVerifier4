@@ -153,8 +153,8 @@
 
         <TableRow
             android:id="@+id/tableRow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="332dp"
+            android:layout_height="76dp"
             android:layout_marginStart="196dp"
             android:layout_marginBottom="88dp"
             android:background="#FFFFFF">

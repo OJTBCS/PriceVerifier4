@@ -23,11 +23,9 @@ public class AddStoreActivity extends AppCompatActivity {
         Button saveButton = findViewById(R.id.saveButton);
         Button deleteButton = findViewById(R.id.deleteButton);
 
-        // Set click listener for the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the current activity and go back
                 finish();
             }
         });
