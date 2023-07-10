@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <!-- Welcome Shoppers -->
+
     <TextView
         android:id="@+id/welcomeShoppersTextView"
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

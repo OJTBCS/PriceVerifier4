@@ -117,6 +117,7 @@
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <EditText
         android:id="@+id/editText2"
         android:layout_width="221dp"
@@ -125,11 +126,10 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintHorizontal_bias="0.905"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
-
+        app:layout_constraintVertical_bias="0.806" />
 
     <Spinner
         android:id="@+id/spinner1"
