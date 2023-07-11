@@ -83,7 +83,6 @@ public class ImportActivity extends AppCompatActivity {
             }
         });
 
-
         dataView = Arrays.asList(
                 "Flag", "PLU", "Barcode", "Item_Description", "Unit_Size",
                 "Unit_Measure", "Unit_Price", "Currency", "Manufacturer",
