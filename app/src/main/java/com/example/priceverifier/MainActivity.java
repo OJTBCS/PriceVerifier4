@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Button btnAddStore = findViewById(R.id.addStoreButton);
         Button btnPriceVerify = findViewById(R.id.priceVerifierButton);
         Button btnImport = findViewById(R.id.importFileButton);
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         btnAddStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

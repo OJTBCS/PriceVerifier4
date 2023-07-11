@@ -227,8 +227,4 @@
 
         </TableLayout>
     </ScrollView>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
