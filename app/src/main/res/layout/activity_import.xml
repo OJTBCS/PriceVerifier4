@@ -171,56 +171,67 @@
                 <TextView
                     android:padding="8dp"
                     android:text="Flag"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="PLU"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Barcode"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Item Description"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Unit Size"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Unit Measure"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Unit Price"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Currency"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Manufacturer"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Store Code"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:padding="8dp"
                     android:text="Item Type"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </TableRow>
