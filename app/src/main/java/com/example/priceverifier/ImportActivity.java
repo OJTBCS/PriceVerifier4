@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -18,8 +20,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -281,47 +286,56 @@ public class ImportActivity extends AppCompatActivity {
 
         TableRow headerRow = new TableRow(this);
         headerRow.setLayoutParams(new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.WRAP_CONTENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
         for (String column : dataView) {
-            ScrollView headerTextView = createScrollView(column, true, 18);
+            TextView headerTextView = createTextView(column, true, 18);
             headerRow.addView(headerTextView);
-
         }
-
         tableLayout.addView(headerRow);
 
-        Thread thread = new Thread(() -> {
-            while (cursor.moveToNext()) {
-                TableRow dataRow = new TableRow(ImportActivity.this);
-                dataRow.setLayoutParams(new TableLayout.LayoutParams(
-                        TableLayout.LayoutParams.MATCH_PARENT,
-                        TableLayout.LayoutParams.WRAP_CONTENT));
+        while (cursor.moveToNext()) {
+            TableRow dataRow = new TableRow(this);
+            dataRow.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.WRAP_CONTENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
 
-                for (String column : dataView) {
-                    int columnIndex = cursor.getColumnIndex(column);
-                    String value = cursor.getString(columnIndex);
-                    ScrollView dataTextView = createScrollView(value, true,18);
-                    dataRow.addView(dataTextView);
-                }
+            for (String column : dataView) {
+                int columnIndex = cursor.getColumnIndex(column);
+                String value = cursor.getString(columnIndex);
 
-                runOnUiThread(() -> {
-                    tableLayout.addView(dataRow);
-
-                    Log.d("DB", "Added data row: " + dataRow.toString());
-                });
+                TextView dataTextView = createTextView(value, false, 18);
+                dataRow.addView(dataTextView);
             }
 
-            cursor.close();
-            db.close();
+            tableLayout.addView(dataRow);
+        }
 
-            runOnUiThread(() -> {
-            });
-        });
-
-        thread.start();
+        cursor.close();
+        db.close();
     }
+    private TextView createTextView(String text, boolean isHeader, float textSize) {
+        TextView textView = new TextView(this);
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
+        int padding = getResources().getDimensionPixelSize(R.dimen.cell_padding);
+        textView.setLayoutParams(layoutParams);
+        textView.setPadding(padding, padding, padding, padding);
+        textView.setText(text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+
+        if (isHeader) {
+            textView.setBackgroundColor(getResources().getColor(R.color.header_background));
+            textView.setTextColor(getResources().getColor(R.color.header_text_color));
+        }
+
+        return textView;
+    }
+
+
+
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
