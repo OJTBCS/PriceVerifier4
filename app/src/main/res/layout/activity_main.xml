@@ -103,7 +103,7 @@
         android:id="@+id/welcomeShoppersTextView2"
         android:layout_width="1284dp"
         android:layout_height="86dp"
-        android:layout_marginTop="732dp"
+        android:layout_marginTop="744dp"
         android:background="#6E3131"
         android:fontFamily="sans-serif-black"
         android:padding="16dp"
@@ -111,6 +111,7 @@
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
