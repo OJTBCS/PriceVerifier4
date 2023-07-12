@@ -4,8 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#EDE8E8" >
+    android:background="#EDE8E8"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/welcomeShoppersTextView11"
+        android:layout_width="1282dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="152dp"
+        android:background="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeShoppersTextView10"
+        android:layout_width="1282dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="636dp"
+        android:background="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeShoppersTextView9"
+        android:layout_width="1282dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="636dp"
+        android:background="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/searchEditText"
@@ -143,13 +191,13 @@
         android:layout_height="479dp"
         android:layout_marginTop="160dp"
         android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:stretchColumns="*"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#FFFFFF"
-        android:stretchColumns="*"
-        android:textSize="16sp"
         tools:layout_editor_absoluteX="16dp">
 
         <TableLayout
@@ -157,9 +205,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:textSize="14sp"
             android:background="#FFFFFF"
             android:stretchColumns="*"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/editText"
             tools:layout_editor_absoluteX="16dp">
 
