@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -23,8 +23,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,7 +58,6 @@ public class ImportActivity extends AppCompatActivity {
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
-
         saveButton.setOnClickListener(v -> {
             if (validateFile()) {
                 saveFile();
@@ -72,7 +69,6 @@ public class ImportActivity extends AppCompatActivity {
 
         deleteButton.setOnClickListener(v -> {
             removeAllItems();
-            showData();
         });
 
         searchButton.setOnClickListener(v -> {
@@ -135,6 +131,7 @@ public class ImportActivity extends AppCompatActivity {
             TextView headerTextView = createTextView(column, true, 18);
             headerRow.addView(headerTextView);
         }
+
         tableLayout.addView(headerRow);
 
         for (String[] rowData : getData) {
@@ -144,11 +141,11 @@ public class ImportActivity extends AppCompatActivity {
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
             for (String value : rowData) {
-                ScrollView dataTextView = createScrollView(value, true, 18);
-                dataRow.addView(dataTextView);
+                ScrollView dataScrollView = createScrollView(value, false, 18);
+                dataRow.addView(dataScrollView);
             }
+
             tableLayout.addView(dataRow);
-            Log.d("DB", "Added data row: " + dataRow.toString());
         }
     }
 
@@ -241,15 +238,12 @@ public class ImportActivity extends AppCompatActivity {
                             contentValuesList.clear();
                         }
                     }
-
                     for (ContentValues contentValues : contentValuesList) {
                         db.insert("items", null, contentValues);
                     }
-
                     db.setTransactionSuccessful();
                     db.endTransaction();
                     db.close();
-
                     Toast.makeText(ImportActivity.this, "File saved successfully", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -265,6 +259,8 @@ public class ImportActivity extends AppCompatActivity {
                 TableRow.LayoutParams.WRAP_CONTENT);
         int padding = getResources().getDimensionPixelSize(R.dimen.cell_padding);
         scrollView.setLayoutParams(layoutParams);
+        scrollView.setVerticalScrollBarEnabled(false);
+        scrollView.setHorizontalScrollBarEnabled(false);
 
         TextView textView = new TextView(this);
         textView.setLayoutParams(new ViewGroup.LayoutParams(
@@ -273,6 +269,7 @@ public class ImportActivity extends AppCompatActivity {
         textView.setPadding(padding, padding, padding, padding);
         textView.setText(text);
         textView.setTextSize(textSize);
+        textView.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
 
         scrollView.addView(textView);
 
@@ -299,6 +296,7 @@ public class ImportActivity extends AppCompatActivity {
             TextView headerTextView = createTextView(column, true, 18);
             headerRow.addView(headerTextView);
         }
+
         tableLayout.addView(headerRow);
 
         while (cursor.moveToNext()) {
@@ -321,6 +319,7 @@ public class ImportActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
     private TextView createTextView(String text, boolean isHeader, float textSize) {
         TextView textView = new TextView(this);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
@@ -331,6 +330,7 @@ public class ImportActivity extends AppCompatActivity {
         textView.setPadding(padding, padding, padding, padding);
         textView.setText(text);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        textView.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
 
         if (isHeader) {
             textView.setBackgroundColor(getResources().getColor(R.color.header_background));

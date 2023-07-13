@@ -34,7 +34,7 @@
         app:srcCompat="@drawable/baseline_verified_24" />
 
     <TextView
-        android:id="@+id/welcomeShoppersTextView"
+        android:id="@+id/TextView"
         android:layout_width="1284dp"
         android:layout_height="86dp"
         android:background="#6E3131"
@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.096" />
 
     <TextView
-        android:id="@+id/welcomeShoppersTextView2"
+        android:id="@+id/TextView2"
         android:layout_width="1285dp"
         android:layout_height="102dp"
         android:layout_marginTop="732dp"
