@@ -4,80 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE8E8"
-    android:padding="16dp">
+    android:background="#EDE8E8">
+
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="1288dp"
+        android:layout_height="75dp"
+        android:background="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/searchEditText"
-        android:layout_width="234dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="241dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
         android:hint="Enter Text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="116dp"
         android:layout_height="65dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Search"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="44dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="76dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/importfile" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="129dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="780dp"
+        android:layout_width="239dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-black"
         android:text="Import File"
-        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="330dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="720dp"
-        android:fontFamily="sans-serif-black"
-        android:text="SUPERMARKET DATA"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/importButton"
-        android:layout_width="189dp"
-        android:layout_height="91dp"
-        android:layout_marginTop="692dp"
-        android:backgroundTint="#6E3131"
-        android:fontFamily="sans-serif-black"
-        android:text="Import"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,28 +74,14 @@
         android:id="@+id/chooseFileButton"
         android:layout_width="187dp"
         android:layout_height="86dp"
-        android:layout_marginTop="692dp"
+        android:layout_marginTop="656dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:onClick="onChooseFileButtonClick"
         android:text="Choose File"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.367"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="187dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="692dp"
-        android:backgroundTint="#6E3131"
-        android:fontFamily="sans-serif-black"
-        android:text="Back"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,24 +89,63 @@
         android:id="@+id/deleteButton"
         android:layout_width="187dp"
         android:layout_height="86dp"
-        android:layout_marginTop="692dp"
+        android:layout_marginTop="656dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:onClick="onDeleteButtonClick"
         android:text="Delete"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="187dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="656dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Back"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/importButton"
+        android:layout_width="187dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="656dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Import"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="330dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="684dp"
+        android:fontFamily="sans-serif-black"
+        android:text="SUPERMARKET DATA"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="1250dp"
-        android:layout_height="512dp"
-        android:layout_marginTop="152dp"
+        android:layout_width="1261dp"
+        android:layout_height="491dp"
+        android:layout_marginTop="156dp"
         android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -143,13 +157,13 @@
             <TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/header_background">
+                android:layout_height="wrap_content">
 
                 <TableRow
                     android:id="@+id/headerRow"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/header_background">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -264,6 +278,21 @@
             </TableLayout>
         </HorizontalScrollView>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/TextView2"
+        android:layout_width="1286dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="752dp"
+        android:background="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

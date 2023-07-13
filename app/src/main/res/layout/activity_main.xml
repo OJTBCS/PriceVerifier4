@@ -8,6 +8,32 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/setYourStoreTextView"
+        android:layout_width="621dp"
+        android:layout_height="99dp"
+        android:fontFamily="sans-serif-black"
+        android:text="PRICE VERIFIER"
+        android:textColor="@color/black"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.189" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="190dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.772"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_verified_24" />
+
+    <TextView
         android:id="@+id/welcomeShoppersTextView"
         android:layout_width="1284dp"
         android:layout_height="86dp"
@@ -23,87 +49,91 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView3"
         android:layout_width="269dp"
         android:layout_height="200dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="312dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/importfile" />
-
-    <Button
-        android:id="@+id/addStoreButton"
-        android:layout_width="274dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="332dp"
-        android:backgroundTint="#6E3131"
-        android:fontFamily="sans-serif-black"
-        android:text="Add Store"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/importFileButton"
-        android:layout_width="274dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="332dp"
-        android:backgroundTint="#6E3131"
-        android:fontFamily="sans-serif-black"
-        android:onClick="onConfigurationButtonClick"
-        android:text="Upload File"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/pricecheck" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="269dp"
         android:layout_height="200dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="312dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintHorizontal_bias="0.847"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/addstore" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="269dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="420dp"
+    <Button
+        android:id="@+id/addStoreButton"
+        android:layout_width="274dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="532dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Add Store"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.851"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pricecheck" />
+        app:layout_constraintVertical_bias="0.096" />
+
+    <Button
+        android:id="@+id/importFileButton"
+        android:layout_width="274dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="532dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onConfigurationButtonClick"
+        android:text="Upload File"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.101" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="269dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="312dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/importfile" />
 
     <Button
         android:id="@+id/priceVerifierButton"
         android:layout_width="274dp"
         android:layout_height="88dp"
+        android:layout_marginTop="532dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Price Verifier"
-        android:textSize="24sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096" />
 
     <TextView
         android:id="@+id/welcomeShoppersTextView2"
-        android:layout_width="1284dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="744dp"
+        android:layout_width="1285dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="732dp"
         android:background="#6E3131"
         android:fontFamily="sans-serif-black"
         android:padding="16dp"
@@ -111,7 +141,7 @@
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

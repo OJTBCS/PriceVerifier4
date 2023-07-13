@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="header_text_color">#070707</color>
     <color name="header_background">#FFFFFF</color>
+    <color name="verify">#8A8080</color>
 
 </resources>

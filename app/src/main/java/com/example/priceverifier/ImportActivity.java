@@ -60,6 +60,7 @@ public class ImportActivity extends AppCompatActivity {
 
         importFileButton.setOnClickListener(v -> openFileChooser());
 
+
         saveButton.setOnClickListener(v -> {
             if (validateFile()) {
                 saveFile();
@@ -129,6 +130,12 @@ public class ImportActivity extends AppCompatActivity {
         headerRow.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
+
+        for (String column : dataView) {
+            TextView headerTextView = createTextView(column, true, 18);
+            headerRow.addView(headerTextView);
+        }
+        tableLayout.addView(headerRow);
 
         for (String[] rowData : getData) {
             TableRow dataRow = new TableRow(ImportActivity.this);
@@ -270,7 +277,6 @@ public class ImportActivity extends AppCompatActivity {
         scrollView.addView(textView);
 
         if (isHeader) {
-            textView.setBackgroundColor(getResources().getColor(R.color.header_background));
             textView.setTextColor(getResources().getColor(R.color.header_text_color));
         }
 
@@ -333,9 +339,6 @@ public class ImportActivity extends AppCompatActivity {
 
         return textView;
     }
-
-
-
 
     private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
