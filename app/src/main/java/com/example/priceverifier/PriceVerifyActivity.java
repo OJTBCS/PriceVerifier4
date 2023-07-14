@@ -16,7 +16,11 @@ public class PriceVerifyActivity extends AppCompatActivity {
 
     private EditText barcodeEditText;
     private Button checkButton, backButton;
-    private TextView itemPriceValueTextView, itemDescriptionValueTextView, unitSizeValueTextView, unitMeasurementValueTextView, barcodeValueTextView;
+    private TextView itemPriceValueTextView;
+    private TextView itemDescriptionValueTextView;
+    private TextView unitSizeValueTextView;
+    private TextView unitMeasurementValueTextView;
+    private TextView barcodeValueTextView;
     private DBHelper dbHelper;
 
     @Override
@@ -41,7 +45,6 @@ public class PriceVerifyActivity extends AppCompatActivity {
                 verifyBarcode();
             }
         });
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,10 +74,8 @@ public class PriceVerifyActivity extends AppCompatActivity {
             unitMeasurementValueTextView.setText(unitMeasurement);
             barcodeValueTextView.setText(barcodeValue);
         } else {
-
             Toast.makeText(PriceVerifyActivity.this, "Item not found", Toast.LENGTH_SHORT).show();
         }
-
         cursor.close();
         db.close();
     }

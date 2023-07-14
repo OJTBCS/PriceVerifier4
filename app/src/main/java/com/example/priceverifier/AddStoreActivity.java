@@ -54,7 +54,6 @@ public class AddStoreActivity extends AppCompatActivity {
                 if (!key.isEmpty() && !description.isEmpty()) {
 
                     storeDB.saveStore(key, description);
-
                     keyEditText.setText("");
                     descriptionEditText.setText("");
 

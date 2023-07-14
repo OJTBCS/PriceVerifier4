@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +33,11 @@ import java.util.List;
 public class ImportActivity extends AppCompatActivity {
 
     private static final int PICK_FILE_REQUEST_CODE = 123;
-    private Button saveButton, deleteButton, importFileButton, searchButton, backButton;
+    private Button saveButton;
+    private Button deleteButton;
+    private Button importFileButton;
+    private Button searchButton;
+    private Button backButton;
     private EditText searchEditText;
     private Uri selectedFileUri;
     private DBHelper dbHelper;

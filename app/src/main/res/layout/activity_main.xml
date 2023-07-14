@@ -93,7 +93,7 @@
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:onClick="onConfigurationButtonClick"
-        android:text="Upload File"
+        android:text="Import File"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
