@@ -7,12 +7,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -63,11 +66,20 @@ public class ImportActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             if (validateFile()) {
                 saveFile();
-                showData();
+
+                ProgressBar progressBar = findViewById(R.id.progressBar);
+                progressBar.setVisibility(View.VISIBLE);
+
+                new Handler().postDelayed(() -> {
+                    showData();
+
+                    progressBar.setVisibility(View.GONE);
+                }, 500);
             } else {
                 Toast.makeText(ImportActivity.this, "Invalid file format or missing required columns", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         deleteButton.setOnClickListener(v -> {
             removeAllItems();
@@ -278,49 +290,56 @@ public class ImportActivity extends AppCompatActivity {
         if (isHeader) {
             textView.setTextColor(getResources().getColor(R.color.header_text_color));
         }
-
         return scrollView;
     }
 
     private void showData() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
-        TableLayout tableLayout = findViewById(R.id.tableLayout);
-        tableLayout.removeAllViews();
+        new Handler().postDelayed(() -> {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
 
-        TableRow headerRow = new TableRow(this);
-        headerRow.setLayoutParams(new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.WRAP_CONTENT,
-                TableLayout.LayoutParams.WRAP_CONTENT));
+            TableLayout tableLayout = findViewById(R.id.tableLayout);
+            tableLayout.removeAllViews();
 
-        for (String column : dataView) {
-            TextView headerTextView = createTextView(column, true, 18);
-            headerRow.addView(headerTextView);
-        }
-
-        tableLayout.addView(headerRow);
-
-        while (cursor.moveToNext()) {
-            TableRow dataRow = new TableRow(this);
-            dataRow.setLayoutParams(new TableLayout.LayoutParams(
+            TableRow headerRow = new TableRow(this);
+            headerRow.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.WRAP_CONTENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
             for (String column : dataView) {
-                int columnIndex = cursor.getColumnIndex(column);
-                String value = cursor.getString(columnIndex);
-
-                TextView dataTextView = createTextView(value, false, 18);
-                dataRow.addView(dataTextView);
+                TextView headerTextView = createTextView(column, true, 18);
+                headerRow.addView(headerTextView);
             }
 
-            tableLayout.addView(dataRow);
-        }
+            tableLayout.addView(headerRow);
 
-        cursor.close();
-        db.close();
+            while (cursor.moveToNext()) {
+                TableRow dataRow = new TableRow(this);
+                dataRow.setLayoutParams(new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.WRAP_CONTENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT));
+
+                for (String column : dataView) {
+                    int columnIndex = cursor.getColumnIndex(column);
+                    String value = cursor.getString(columnIndex);
+
+                    TextView dataTextView = createTextView(value, false, 18);
+                    dataRow.addView(dataTextView);
+                }
+
+                tableLayout.addView(dataRow);
+            }
+
+            cursor.close();
+            db.close();
+
+            progressBar.setVisibility(View.GONE);
+        }, 500);
     }
+
 
     private TextView createTextView(String text, boolean isHeader, float textSize) {
         TextView textView = new TextView(this);
@@ -338,7 +357,6 @@ public class ImportActivity extends AppCompatActivity {
             textView.setBackgroundColor(getResources().getColor(R.color.header_background));
             textView.setTextColor(getResources().getColor(R.color.header_text_color));
         }
-
         return textView;
     }
 

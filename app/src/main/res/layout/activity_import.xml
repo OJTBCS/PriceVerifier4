@@ -279,6 +279,7 @@
         </HorizontalScrollView>
     </ScrollView>
 
+
     <TextView
         android:id="@+id/TextView2"
         android:layout_width="1286dp"
@@ -291,6 +292,17 @@
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="328dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="664dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
