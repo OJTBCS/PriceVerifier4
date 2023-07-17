@@ -6,6 +6,41 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/txtViewLogIn"
+        android:layout_width="635dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="116dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Log In to your Account"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewLogIn"
+        android:layout_width="126dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_login_24" />
+
+    <ImageView
+        android:id="@+id/imageViewPriceVerify"
+        android:layout_width="178dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="472dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pricecheck" />
+
+    <TextView
         android:id="@+id/welcomeShoppersTextView5"
         android:layout_width="match_parent"
         android:layout_height="86dp"
@@ -22,13 +57,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/signin"
+        android:id="@+id/LogIn"
         android:layout_width="1282dp"
         android:layout_height="86dp"
         android:background="#6E3131"
         android:fontFamily="sans-serif-black"
         android:padding="16dp"
-        android:text="SIGN IN"
+        android:text="LOG IN"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,68 +74,92 @@
 
     <EditText
         android:id="@+id/et_username"
-        android:layout_width="519dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="256dp"
+        android:layout_width="513dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="280dp"
         android:hint="Username or Email"
         android:inputType="text"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_password"
-        android:layout_width="519dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="360dp"
-        android:hint="Password"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/signin" />
-
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/login"
         android:layout_width="170dp"
         android:layout_height="76dp"
+        android:layout_marginTop="536dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
-        android:text="SIGN IN"
+        android:text="LOG IN"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signup2"
         android:layout_width="291dp"
         android:layout_height="68dp"
+        android:layout_marginTop="628dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="Create Account"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.605"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Sign In with your username or email."
-        android:textSize="30sp"
+        android:layout_marginTop="228dp"
         android:fontFamily="sans-serif-black"
+        android:text="Username:"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="376dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Password:"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="525dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="428dp"
+        android:hint="Password"
+        android:inputType="text"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/priceverifier"
+        android:layout_width="270dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="596dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Go to Price Verifier"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

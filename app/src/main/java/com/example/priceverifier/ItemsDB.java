@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "CsvDB";
+public class ItemsDB extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "ItemsDB";
     private static final int DATABASE_VERSION = 1;
     protected static final String TABLE_NAME = "items";
 
-    public DBHelper(Context context) {
+    public ItemsDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

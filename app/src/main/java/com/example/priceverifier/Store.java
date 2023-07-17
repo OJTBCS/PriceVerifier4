@@ -1,6 +1,7 @@
 package com.example.priceverifier;
 
-public class Store {private int id;
+public class Store {
+    private int id;
     private String key;
     private String description;
 

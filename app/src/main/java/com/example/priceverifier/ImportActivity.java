@@ -43,7 +43,7 @@ public class ImportActivity extends AppCompatActivity {
     private Button backButton;
     private EditText searchEditText;
     private Uri selectedFileUri;
-    private DBHelper dbHelper;
+    private ItemsDB itemsDb;
     private List<String> dataView;
     private List<String[]> getData;
 
@@ -52,7 +52,7 @@ public class ImportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import);
 
-        dbHelper = new DBHelper(this);
+        itemsDb = new ItemsDB(this);
 
         importFileButton = findViewById(R.id.chooseFileButton);
         saveButton = findViewById(R.id.importButton);
@@ -80,7 +80,6 @@ public class ImportActivity extends AppCompatActivity {
             }
         });
 
-
         deleteButton.setOnClickListener(v -> {
             removeAllItems();
         });
@@ -102,8 +101,8 @@ public class ImportActivity extends AppCompatActivity {
     private void getData(String query) {
         getData = new ArrayList<>();
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
+        SQLiteDatabase db = itemsDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + ItemsDB.TABLE_NAME, null);
 
         while (cursor.moveToNext()) {
             boolean matchFound = false;
@@ -217,7 +216,7 @@ public class ImportActivity extends AppCompatActivity {
                     boolean isFirstLine = true;
                     int batchSize = 1000;
 
-                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    SQLiteDatabase db = itemsDb.getWritableDatabase();
                     db.beginTransaction();
 
                     List<ContentValues> contentValuesList = new ArrayList<>();
@@ -297,9 +296,8 @@ public class ImportActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        new Handler().postDelayed(() -> {
-            SQLiteDatabase db = dbHelper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME, null);
+            SQLiteDatabase db = itemsDb.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + ItemsDB.TABLE_NAME, null);
 
             TableLayout tableLayout = findViewById(R.id.tableLayout);
             tableLayout.removeAllViews();
@@ -329,7 +327,6 @@ public class ImportActivity extends AppCompatActivity {
                     TextView dataTextView = createTextView(value, false, 18);
                     dataRow.addView(dataTextView);
                 }
-
                 tableLayout.addView(dataRow);
             }
 
@@ -337,9 +334,7 @@ public class ImportActivity extends AppCompatActivity {
             db.close();
 
             progressBar.setVisibility(View.GONE);
-        }, 500);
     }
-
 
     private TextView createTextView(String text, boolean isHeader, float textSize) {
         TextView textView = new TextView(this);
@@ -377,8 +372,8 @@ public class ImportActivity extends AppCompatActivity {
     }
 
     private void removeAllItems() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(DBHelper.TABLE_NAME, null, null);
+        SQLiteDatabase db = itemsDb.getWritableDatabase();
+        db.delete(ItemsDB.TABLE_NAME, null, null);
         db.close();
         Toast.makeText(ImportActivity.this, "All items removed from the database", Toast.LENGTH_SHORT).show();
     }

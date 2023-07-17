@@ -21,14 +21,14 @@ public class PriceVerifyActivity extends AppCompatActivity {
     private TextView unitSizeValueTextView;
     private TextView unitMeasurementValueTextView;
     private TextView barcodeValueTextView;
-    private DBHelper dbHelper;
+    private ItemsDB itemsDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_priceverify);
 
-        dbHelper = new DBHelper(this);
+        itemsDb = new ItemsDB(this);
 
         barcodeEditText = findViewById(R.id.barcodeEditText);
         checkButton = findViewById(R.id.checkButton);
@@ -56,8 +56,8 @@ public class PriceVerifyActivity extends AppCompatActivity {
     private void verifyBarcode() {
         String barcode = barcodeEditText.getText().toString();
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + DBHelper.TABLE_NAME + " WHERE Barcode=?", new String[]{barcode});
+        SQLiteDatabase db = itemsDb.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + ItemsDB.TABLE_NAME + " WHERE Barcode=?", new String[]{barcode});
 
         if (cursor.moveToFirst()) {
 
