@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/createAcc"
+        android:layout_width="291dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="584dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:text="Create Account"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txtViewLogIn"
         android:layout_width="635dp"
@@ -14,7 +27,7 @@
         android:text="Create your Account"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +37,7 @@
         android:layout_height="91dp"
         android:layout_marginTop="108dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintHorizontal_bias="0.748"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/signup" />
@@ -38,7 +51,6 @@
         android:inputType="text"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,12 +58,11 @@
         android:id="@+id/et_username"
         android:layout_width="513dp"
         android:layout_height="64dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="252dp"
         android:hint="Enter Username"
         android:inputType="text"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,18 +75,18 @@
         android:text="Confirm Password:"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintHorizontal_bias="0.393"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/signup2"
+        android:id="@+id/backButton"
         android:layout_width="291dp"
         android:layout_height="68dp"
-        android:layout_marginTop="604dp"
+        android:layout_marginTop="660dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
-        android:text="Create Account"
+        android:text="Back"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,12 +96,11 @@
         android:id="@+id/et_password"
         android:layout_width="513dp"
         android:layout_height="64dp"
-        android:layout_marginTop="384dp"
+        android:layout_marginTop="380dp"
         android:hint="Password"
         android:inputType="text"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,7 +113,7 @@
         android:text="Password:"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,12 +121,12 @@
         android:id="@+id/textViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="200dp"
         android:fontFamily="sans-serif-black"
         android:text="Username:"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

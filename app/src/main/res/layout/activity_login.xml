@@ -87,8 +87,8 @@
 
     <Button
         android:id="@+id/login"
-        android:layout_width="170dp"
-        android:layout_height="76dp"
+        android:layout_width="291dp"
+        android:layout_height="68dp"
         android:layout_marginTop="536dp"
         android:backgroundTint="#6E3131"
         android:fontFamily="sans-serif-black"
@@ -99,7 +99,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/signup2"
+        android:id="@+id/signup"
         android:layout_width="291dp"
         android:layout_height="68dp"
         android:layout_marginTop="628dp"
