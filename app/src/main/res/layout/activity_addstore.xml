@@ -23,8 +23,8 @@
 
     <TextView
         android:id="@+id/setStoreTextView"
-        android:layout_width="1298dp"
-        android:layout_height="75dp"
+        android:layout_width="1284dp"
+        android:layout_height="77dp"
         android:background="#6E3131"
         android:fontFamily="sans-serif-black"
         android:text="  ADD STORE"

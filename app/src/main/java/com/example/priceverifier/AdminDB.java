@@ -49,7 +49,24 @@ public class AdminDB{
         cursor.close();
         return admins;
     }
-
+    public boolean checkCredentials(String username, String password){
+        SQLiteDatabase db = database;
+        String selection = COLUMN_USERNAME + " = ? AND " + COLUMN_PASSWORD + " = ?";
+        String[] selectionArgs = {username,password};
+        Cursor cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
+        boolean isMatchFound = cursor.getCount() > 0;
+        cursor.close();
+        return isMatchFound;
+    }
+    public boolean isUsernameExist(String username){
+        SQLiteDatabase db = database;
+        String selection = COLUMN_USERNAME + " = ?";
+        String[] selectionArgs = {username};
+        Cursor cursor = db.query(TABLE_NAME, null, selection,selectionArgs,null,null,null);
+        boolean isExist = cursor.getCount() > 0;
+        cursor.close();
+        return isExist;
+    }
 
     private static class AdminDBHelper extends SQLiteOpenHelper {
         public AdminDBHelper(Context context) {
@@ -65,17 +82,6 @@ public class AdminDB{
                     COLUMN_PASSWORD + " TEXT)";
             db.execSQL(createTableQuery);
         }
-        public boolean checkCredentials(String username, String password){
-            SQLiteDatabase db = this.getReadableDatabase();
-            String selection = "username = ? AND password = ?";
-            String[] selectionArgs = {username, password};
-            Cursor cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null);
-            boolean isMatchFound = cursor.getCount() > 0;
-            cursor.close();
-            db.close();
-            return isMatchFound;
-        }
-
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         }

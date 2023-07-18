@@ -1,5 +1,6 @@
 package com.example.priceverifier;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PriceVerifyActivity extends AppCompatActivity {
 
     private EditText barcodeEditText;
-    private Button checkButton, backButton;
+    private Button checkButton, adminButton;
     private TextView itemPriceValueTextView;
     private TextView itemDescriptionValueTextView;
     private TextView unitSizeValueTextView;
@@ -32,7 +33,7 @@ public class PriceVerifyActivity extends AppCompatActivity {
 
         barcodeEditText = findViewById(R.id.barcodeEditText);
         checkButton = findViewById(R.id.checkButton);
-        backButton = findViewById(R.id.backButton);
+        adminButton = findViewById(R.id.adminButton);
         itemPriceValueTextView = findViewById(R.id.itemPriceValueTextView);
         itemDescriptionValueTextView = findViewById(R.id.itemDescriptionValueTextView);
         unitSizeValueTextView = findViewById(R.id.unitSizeValueTextView);
@@ -45,10 +46,11 @@ public class PriceVerifyActivity extends AppCompatActivity {
                 verifyBarcode();
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
+        adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(PriceVerifyActivity.this, LogInActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -78,5 +80,6 @@ public class PriceVerifyActivity extends AppCompatActivity {
         }
         cursor.close();
         db.close();
+
     }
 }

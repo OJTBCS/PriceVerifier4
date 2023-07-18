@@ -12,7 +12,7 @@
         android:theme="@style/Theme.PriceVerifier"
         tools:targetApi="31">
         <activity
-            android:name=".LogInActivity"
+            android:name=".PriceVerifyActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".ImportActivity"/>
-        <activity android:name=".PriceVerifyActivity"/>
+        <activity android:name=".LogInActivity"/>
         <activity android:name=".AddStoreActivity"/>
         <activity android:name=".SignUpActivity"/>
     </application>
