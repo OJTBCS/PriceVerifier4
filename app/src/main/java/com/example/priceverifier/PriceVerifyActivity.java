@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PriceVerifyActivity extends AppCompatActivity {
 
     private EditText barcodeEditText;
-    private Button checkButton, adminButton;
+    private Button checkButton;
     private TextView itemPriceValueTextView;
     private TextView itemDescriptionValueTextView;
     private TextView unitSizeValueTextView;
@@ -33,7 +33,6 @@ public class PriceVerifyActivity extends AppCompatActivity {
 
         barcodeEditText = findViewById(R.id.barcodeEditText);
         checkButton = findViewById(R.id.checkButton);
-        adminButton = findViewById(R.id.adminButton);
         itemPriceValueTextView = findViewById(R.id.itemPriceValueTextView);
         itemDescriptionValueTextView = findViewById(R.id.itemDescriptionValueTextView);
         unitSizeValueTextView = findViewById(R.id.unitSizeValueTextView);
@@ -43,18 +42,18 @@ public class PriceVerifyActivity extends AppCompatActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyBarcode();
+                String enteredAdminCode = barcodeEditText.getText().toString().trim();
+                if (enteredAdminCode.equals("p@ssw0rd")) {
+                    Intent intent = new Intent(PriceVerifyActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    verifyBarcode();
+                }
             }
         });
-        adminButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PriceVerifyActivity.this, LogInActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
+}
     private void verifyBarcode() {
         String barcode = barcodeEditText.getText().toString();
 

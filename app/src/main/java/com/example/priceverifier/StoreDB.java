@@ -60,7 +60,17 @@ public class StoreDB {
     }
 
     public void deleteStore(int id) {
+
         database.delete(TABLE_NAME, COLUMN_ID + " = " + id, null);
+    }
+    public boolean isKeyExist(String key){
+        SQLiteDatabase db = database;
+        String selection = COLUMN_KEY + " = ?";
+        String[] selectionArgs = {key};
+        Cursor cursor = db.query(TABLE_NAME, null,selection,selectionArgs,null,null,null);
+        Boolean isExist = cursor.getCount() > 0;
+        cursor.close();
+        return isExist;
     }
 
     private static class StoreDatabaseHelper extends SQLiteOpenHelper {
@@ -70,7 +80,6 @@ public class StoreDB {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            // Create the "stores" table
             String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_KEY + " TEXT, " +

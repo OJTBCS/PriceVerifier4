@@ -6,6 +6,21 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/deleteButton2"
+        android:layout_width="187dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="472dp"
+        android:backgroundTint="#6E3131"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onDeleteButtonClick"
+        android:text="Delete"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/createAcc"
         android:layout_width="291dp"
         android:layout_height="68dp"

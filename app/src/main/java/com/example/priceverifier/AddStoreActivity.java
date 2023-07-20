@@ -53,12 +53,15 @@ public class AddStoreActivity extends AppCompatActivity {
 
                 if (!key.isEmpty() && !description.isEmpty()) {
 
+                    if(storeDB.isKeyExist(key)){
+                        Toast.makeText(AddStoreActivity.this, "Store with same key already Exist", Toast.LENGTH_SHORT).show();
+                    }else{
                     storeDB.saveStore(key, description);
                     keyEditText.setText("");
                     descriptionEditText.setText("");
-
                     Toast.makeText(AddStoreActivity.this, "Store saved successfully", Toast.LENGTH_SHORT).show();
                     refreshTableLayout();
+                }
                 } else {
                     Toast.makeText(AddStoreActivity.this, "Please enter both key and description", Toast.LENGTH_SHORT).show();
                 }
@@ -118,59 +121,59 @@ public class AddStoreActivity extends AppCompatActivity {
         });
     }
 
-    private void displayStoresInTable() {
-        tableLayout.removeAllViews();
+        private void displayStoresInTable() {
+            tableLayout.removeAllViews();
 
-        TableRow headerRow = new TableRow(this);
-        TextView keyHeader = createHeaderTextView("Store Key");
-        TextView descriptionHeader = createHeaderTextView("Description");
-        headerRow.addView(keyHeader);
-        headerRow.addView(descriptionHeader);
-        tableLayout.addView(headerRow);
+            TableRow headerRow = new TableRow(this);
+            TextView keyHeader = createHeaderTextView("Store Key");
+            TextView descriptionHeader = createHeaderTextView("Description");
+            headerRow.addView(keyHeader);
+            headerRow.addView(descriptionHeader);
+            tableLayout.addView(headerRow);
 
-        for (Store store : storeList) {
-            TableRow row = new TableRow(this);
-            TextView keyTextView = createTextView(store.getKey());
-            TextView descriptionTextView = createTextView(store.getDescription());
-            row.addView(keyTextView);
-            row.addView(descriptionTextView);
-            row.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    keyEditText.setText(store.getKey());
-                    descriptionEditText.setText(store.getDescription());
-                    selectedStore = store;
-                }
-            });
-            tableLayout.addView(row);
+            for (Store store : storeList) {
+                TableRow row = new TableRow(this);
+                TextView keyTextView = createTextView(store.getKey());
+                TextView descriptionTextView = createTextView(store.getDescription());
+                row.addView(keyTextView);
+                row.addView(descriptionTextView);
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        keyEditText.setText(store.getKey());
+                        descriptionEditText.setText(store.getDescription());
+                        selectedStore = store;
+                    }
+                });
+                tableLayout.addView(row);
+            }
         }
-    }
 
-    private TextView createHeaderTextView(String text) {
-        TextView textView = new TextView(this);
-        textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-        textView.setPadding(8, 8, 8, 8);
-        textView.setText(text);
-        textView.setTextSize(26);
-        return textView;
-    }
+        private TextView createHeaderTextView(String text) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+            textView.setPadding(8, 8, 8, 8);
+            textView.setText(text);
+            textView.setTextSize(26);
+            return textView;
+        }
 
-    private TextView createTextView(String text) {
-        TextView textView = new TextView(this);
-        textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-        textView.setPadding(8, 8, 8, 8);
-        textView.setText(text);
-        textView.setTextSize(24);
-        return textView;
-    }
+        private TextView createTextView(String text) {
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+            textView.setPadding(8, 8, 8, 8);
+            textView.setText(text);
+            textView.setTextSize(24);
+            return textView;
+        }
 
-    private void refreshTableLayout() {
-        storeList = storeDB.getAllStores();
-        displayStoresInTable();
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        storeDB.close();
-    }
+        private void refreshTableLayout() {
+            storeList = storeDB.getAllStores();
+            displayStoresInTable();
+        }
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            storeDB.close();
+        }
 }

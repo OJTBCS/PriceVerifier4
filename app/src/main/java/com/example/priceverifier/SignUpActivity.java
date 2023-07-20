@@ -1,6 +1,7 @@
 package com.example.priceverifier;
 
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -38,7 +39,6 @@ public class SignUpActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +62,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
         });
     }
+
     private void promptForAdminPassword(final String username, final String password, final String confirmPassword) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Admin Confirmation");
@@ -98,4 +99,5 @@ public class SignUpActivity extends AppCompatActivity {
 
         builder.show();
     }
+
 }
